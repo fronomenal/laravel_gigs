@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Listing;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/test/{param}', function (string $param) {
-    return response("<h1>hello, $param!</h1>", 200, ["Content-Type" => "text/plain"]);
+Route::get('/', function () {
+    return view("listings", ["gigs" => Listing::all()]);
 });
+
+Route::get('/{id}', function (int $id) {
+    return view("listing", ["gig" => Listing::find($id)]);
+})->where("id", "[0-9]+");
