@@ -18,6 +18,8 @@ Route::get('/', function () {
     return view("listings", ["gigs" => Listing::all()]);
 });
 
-Route::get('/{id}', function (int $id) {
-    return view("listing", ["gig" => Listing::find($id)]);
-})->where("id", "[0-9]+");
+Route::get('list/{list}', function (Listing $list) {
+
+    return view("listing", ["gig" => $list]);
+
+})->where("list", "[0-9]+");

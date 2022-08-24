@@ -2,21 +2,22 @@
 
 
 @section('content')
+
+@include('partials._hero')
+
+@include('partials._search')
     
-<h1>All Listings</h1>
+<div class="bg-gray-50 border border-gray-200 rounded p-6 grid gap-1 lg:grid-cols-2">
 
 @unless(count($gigs)==0)
 @foreach ($gigs as $g)
-<section>
-    <h2><a href="/{{$g["id"]}}">{{$g["title"]}}</a></h2>
-</section>
-<p>
-    {{$g["description"]}}
-</p>
+    <x-list-card :list="$g" />
 @endforeach
 
 @else
 <p>No Listings Available</p>
 @endunless
+
+</div>
 
 @endsection
