@@ -38,7 +38,7 @@ class ListingController extends Controller
             "website" => "required",
         ]);
 
-        $validForm["tags"] = preg_replace("/\s+/", "", strtolower($validForm["tags"]));
+        $validForm["tags"] = preg_replace("/\s*,/", "|", strtolower($validForm["tags"]));
 
         Listing::create($validForm);
 
