@@ -9,7 +9,7 @@
         />
         <div>
             <h3 class="text-2xl">
-                <a href="/list/{{$list->id}}">{{$list->title}}</a>
+                <a href="/listings/{{$list->id}}">{{$list->title}}</a>
             </h3>
             <div class="text-xl font-bold mb-4">{{$list->company}}</div>
             <x-list-tags :csvTags="$list->tags" />

@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Listing;
+use App\Http\Controllers\ListingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,12 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view("listings", ["gigs" => Listing::all()]);
-});
+Route::get('/', [ListingController::class, "index"]);
 
-Route::get('list/{list}', function (Listing $list) {
+Route::get('listings/{list}', [ListingController::class, "show"])->where("list", "[0-9]+");
 
-    return view("listing", ["gig" => $list]);
+Route::get('listings/create', [ListingController::class, "create"]);
 
-})->where("list", "[0-9]+");
+Route::post('listings/', [ListingController::class, "store"]);

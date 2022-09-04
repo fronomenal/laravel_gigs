@@ -7,6 +7,8 @@
 
 @include('partials._search')
     
+<x-flash-listed />
+
 <div class="bg-gray-50 border border-gray-200 rounded p-6 grid gap-1 lg:grid-cols-2">
 
 @unless(count($gigs)==0)
