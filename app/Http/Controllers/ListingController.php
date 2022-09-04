@@ -11,7 +11,7 @@ class ListingController extends Controller
     // Return all listings
     public function index(Request $request){
         $q = ["tag" => $request->tag, "search" => $request->search];
-        return view("listings/index", ["gigs" => Listing::latest()->filter($q)->get()]);
+        return view("listings/index", ["gigs" => Listing::latest()->filter($q)->paginate(6)]);
     }
 
     //Return a single Listing
