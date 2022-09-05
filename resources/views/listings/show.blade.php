@@ -5,7 +5,7 @@
 
 @include('partials._search')
 
-<a href="index.html" class="inline-block text-black ml-4 mb-4"><i class="fa-solid fa-arrow-left"></i> Back </a>
+<a href="/" class="inline-block text-black ml-4 mb-4"><i class="fa-solid fa-arrow-left"></i> Back </a>
 <div class="mx-4">
     <x-card class="p-10">
         <div class="flex flex-col items-center justify-center text-center">
@@ -49,6 +49,8 @@
     </x-card>
 </div>
 
+@auth
+    @if (auth()->id() == $gig->user->id)
         <x-card class="mt-4 p-2 flex space-x-6 w-1/5 mx-auto flex justify-between">
             <a href="/listings/{{$gig->id}}/edit"> <i class="fa-solid fa-pencil"></i> Edit </a>
 
@@ -60,5 +62,7 @@
                 <button class="text-red-500"><i class="fa-solid fa-trash"></i> Delete </button>
             </form>
         </x-card>
+    @endif
+@endauth
     
 @endsection

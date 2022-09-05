@@ -31,6 +31,8 @@ Route::post('listings/', [ListingController::class, "store"])->middleware("auth"
 
 Route::put('listings/{list}', [ListingController::class, "update"])->where("list", "[0-9]+")->middleware("auth");
 
+Route::get('listings/manage', [ListingController::class, "manage"])->middleware("auth");
+
 Route::delete('listings/{list}', [ListingController::class, "destroy"])->where("list", "[0-9]+")->middleware("auth");
 
 

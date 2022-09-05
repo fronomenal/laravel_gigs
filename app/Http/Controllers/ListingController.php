@@ -20,6 +20,12 @@ class ListingController extends Controller
         return view("listings/show", ["gig" => $list]);
     }
 
+    //Return all Listings for an account
+    public function manage(){
+
+        return view("listings/manage", ["gig" => auth()->user()->listings()->get()]);
+    }
+
     //show create form
     public function create(){
 
@@ -48,7 +54,9 @@ class ListingController extends Controller
             $validForm["logo"] = $request->file("logo")->store("logos", "public");
         }
 
-        $validForm["tags"] = preg_replace("/\s*,/", "|", strtolower($validForm["tags"]));
+        $validForm["user_id"] = auth()->id();
+
+        $validForm["tags"] = preg_replace("/\s*,\s*/", "|", strtolower($validForm["tags"]));
 
         Listing::create($validForm);
 
@@ -57,6 +65,11 @@ class ListingController extends Controller
 
     //updates listing on database
     public function update(Request $request, Listing $list){
+
+        if($list->user_id != auth()->id()){
+            abort(403, "Unauthorized Action");
+        }
+
         $request->validate([
             "email" => ["required", "email"],
         ]);
@@ -69,6 +82,11 @@ class ListingController extends Controller
 
     //removes listing from database
     public function destroy(Listing $list){
+
+        if($list->user_id != auth()->id()){
+            abort(403, "Unauthorized Action");
+        }
+        
         $list->delete();
 
 

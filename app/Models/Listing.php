@@ -21,4 +21,9 @@ class Listing extends Model
             ->orWhere("description", "ilike", "%{$search}%");
         }
     }
+
+    //User relationship
+    public function user(){
+        return $this->belongsTo(User::class, "user_id");
+    }
 }
