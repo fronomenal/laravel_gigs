@@ -52,7 +52,7 @@ class ListingController extends Controller
 
         Listing::create($validForm);
 
-        return redirect('/')->with("listed", "Listing Stored");
+        return redirect('/')->with("listing", "Listing Stored");
     }
 
     //updates listing on database
@@ -64,7 +64,7 @@ class ListingController extends Controller
         $this->saveFields($request->input(), $list);
 
 
-        return back()->with("listed", "Listing Updated");
+        return back()->with("listing", "Listing Updated");
     }
 
     //removes listing from database
@@ -72,7 +72,7 @@ class ListingController extends Controller
         $list->delete();
 
 
-        return redirect('/')->with("listed", "Listing Deleted");
+        return redirect('/')->with("listing", "Listing Deleted");
     }
 
     //Saves only modified fields

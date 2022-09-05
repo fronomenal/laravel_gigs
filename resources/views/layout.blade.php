@@ -27,24 +27,44 @@
         </script>
         <title>LaraGigs | Find Laravel Jobs & Projects</title>
     </head>
-<body class="mb-48">
+<body class="mb-48"> 
+    <x-flash-listed />
     <header>
         <nav class="flex justify-between items-center mb-4">
             <a href="/"
                 ><img class="w-24" src="{{asset('imgs/logo.png')}}" alt="" class="logo"
             /></a>
             <ul class="flex space-x-6 mr-6 text-lg">
+                @auth
                 <li>
-                    <a href="register.html" class="hover:text-laravel"
+                    <span class="uppercase">
+                        Welcome: <b>{{auth()->user()->name}}</b>
+                    </span>
+                </li>
+                <li>
+                    <a href="/listings/manage" class="hover:text-laravel"
+                        ><i class="fa-solid fa-gear"></i> Manage Listings</a
+                    >
+                </li>
+                <li>
+                    <form action="/users/logout" method="post" class="inline">
+                        @csrf
+                        <button> <i class="fa-solid fa-door-closed"></i> Logout </button>
+                    </form>
+                </li>
+                @else
+                <li>
+                    <a href="/users/sign-up" class="hover:text-laravel"
                         ><i class="fa-solid fa-user-plus"></i> Register</a
                     >
                 </li>
                 <li>
-                    <a href="login.html" class="hover:text-laravel"
+                    <a href="/users/login" class="hover:text-laravel"
                         ><i class="fa-solid fa-arrow-right-to-bracket"></i>
                         Login</a
                     >
                 </li>
+                @endauth
             </ul>
         </nav>
     </header>
