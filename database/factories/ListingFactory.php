@@ -16,7 +16,7 @@ class ListingFactory extends Factory
      * 
      */
 
-    private $skills = ["devops", "fronte-end", "back-end", "testing", "cybersecurity"];
+    private $skills = ["devops", "frontend", "backend", "testing", "cybersecurity"];
     private $langs = ["javascript", "php", "html", "css", "c#", "golang", "c++", "rust"];
     private $frames = ["symphony", "fast-api", "gin", "flask", "drupal", "react", "vue", "angular", "svelte", "pheonix", "elixir", "asp.net", "qt"];
 

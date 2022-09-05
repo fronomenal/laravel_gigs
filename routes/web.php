@@ -20,4 +20,10 @@ Route::get('listings/{list}', [ListingController::class, "show"])->where("list",
 
 Route::get('listings/create', [ListingController::class, "create"]);
 
+Route::get('listings/{list}/edit', [ListingController::class, "edit"])->where("list", "[0-9]+");
+
 Route::post('listings/', [ListingController::class, "store"]);
+
+Route::put('listings/{list}', [ListingController::class, "update"])->where("list", "[0-9]+");
+
+Route::delete('listings/{list}', [ListingController::class, "destroy"])->where("list", "[0-9]+");

@@ -26,6 +26,12 @@ class ListingController extends Controller
         return view("listings/create");
     }
 
+    //show edit form
+    public function edit(Listing $list){
+
+        return view("listings/edit", ["gig" => $list]);
+    }
+
     //adds new listing to database
     public function store(Request $request){
         $validForm = $request->validate([
@@ -38,10 +44,59 @@ class ListingController extends Controller
             "website" => "required",
         ]);
 
+        if($request->hasFile("logo")){
+            $validForm["logo"] = $request->file("logo")->store("logos", "public");
+        }
+
         $validForm["tags"] = preg_replace("/\s*,/", "|", strtolower($validForm["tags"]));
 
         Listing::create($validForm);
 
         return redirect('/')->with("listed", "Listing Stored");
+    }
+
+    //updates listing on database
+    public function update(Request $request, Listing $list){
+        $request->validate([
+            "email" => ["required", "email"],
+        ]);
+
+        $this->saveFields($request->input(), $list);
+
+
+        return back()->with("listed", "Listing Updated");
+    }
+
+    //removes listing from database
+    public function destroy(Listing $list){
+        $list->delete();
+
+
+        return redirect('/')->with("listed", "Listing Deleted");
+    }
+
+    //Saves only modified fields
+    private function saveFields(array $input, Listing $list) {
+
+        if( $input["title"] && $input["title"] != $list->title ){
+            $list->title = $input["title"];
+        }
+        if( $input["location"] && $input["location"] != $list->location ){
+            $list->location = $input["location"];
+        }
+        if( $input["website"] && $input["website"] != $list->website ){
+            $list->website = $input["website"];
+        }
+        if( $input["email"] && $input["email"] != $list->email ){
+            $list->email = $input["email"];
+        }
+        if( $input["tags"] && $input["tags"] != $list->tags ){
+            $list->tags = preg_replace("/\s*,/", "|", strtolower($input["tags"]));
+        }
+        if( $input["description"] && $input["description"] != $list->description ){
+            $list->description = $input["description"];
+        }
+
+        $list->save();
     }
 }
