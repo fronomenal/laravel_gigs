@@ -23,24 +23,24 @@ Route::get('/', [ListingController::class, "index"]);
 
 Route::get('listings/{list}', [ListingController::class, "show"])->where("list", "[0-9]+");
 
-Route::get('listings/create', [ListingController::class, "create"]);
+Route::get('listings/create', [ListingController::class, "create"])->middleware("auth");
 
-Route::get('listings/{list}/edit', [ListingController::class, "edit"])->where("list", "[0-9]+");
+Route::get('listings/{list}/edit', [ListingController::class, "edit"])->where("list", "[0-9]+")->middleware("auth");
 
-Route::post('listings/', [ListingController::class, "store"]);
+Route::post('listings/', [ListingController::class, "store"])->middleware("auth");
 
-Route::put('listings/{list}', [ListingController::class, "update"])->where("list", "[0-9]+");
+Route::put('listings/{list}', [ListingController::class, "update"])->where("list", "[0-9]+")->middleware("auth");
 
-Route::delete('listings/{list}', [ListingController::class, "destroy"])->where("list", "[0-9]+");
+Route::delete('listings/{list}', [ListingController::class, "destroy"])->where("list", "[0-9]+")->middleware("auth");
 
 
 //users
-Route::get("/users/sign-up", [UserController::class, "create"]);
+Route::get("/users/sign-up", [UserController::class, "create"])->middleware("guest");
 
-Route::get("/users/login", [UserController::class, "login"]);
+Route::get("/users/login", [UserController::class, "login"])->name("login")->middleware("guest");
 
-Route::post("/users/login", [UserController::class, "authenticate"]);
+Route::post("/users/login", [UserController::class, "authenticate"])->middleware("guest");
 
 Route::post("/users", [UserController::class, "store"]);
 
-Route::post("/users/logout", [UserController::class, "logout"]);
+Route::post("/users/logout", [UserController::class, "logout"])->middleware("auth");
