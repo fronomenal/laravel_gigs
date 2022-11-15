@@ -1,4 +1,4 @@
-# Vanilla CSS Project
+# Laravel CRUD Jobs Site
 
 A fullstack Laravel site for listing jobs.
 
